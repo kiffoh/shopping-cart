@@ -1,4 +1,47 @@
 .navbar {
     display: flex;
+    list-style: none;
+    padding: 0;
+    background-color: #dad9d9;
+    position: relative;
     justify-content: space-between;
+  }
+  
+  .navbar a {
+    color: #333;
+    padding: 14px 20px;
+    text-decoration: none;
+    position: relative; /* Ensure relative positioning for z-index to work */
+  }
+  
+  .navbar a:hover {
+    background-color: #575757;
+  }
+
+  .navbar a.shopping-cart {
+    margin-left: auto; /* Push the shopping cart link to the right */
+  }
+  
+  
+  .totalQuantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    color: #333;
+    font-weight: bold;
+    position: absolute;
+    z-index: 1; /* Ensure the quantity display is above the shopping cart link */
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+  
+
+.grid {
+    display: grid;
 }

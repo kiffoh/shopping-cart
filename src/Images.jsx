@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./Images.module.css"
+import PropTypes from "prop-types"
 
 const useImageURL = () => {
     const [imageURL, setImageURL] = useState(null);
@@ -27,31 +28,8 @@ const useImageURL = () => {
     return {imageURL, error, loading}
 }
 
-const Images = () => {
+const Images = ({ quantities, onIncrease, onDecrease, onChange }) => {
     const { imageURL, error, loading } = useImageURL();
-    const [quantities, setQuantities] = useState({});
-
-    const handleIncrease = (id) => {
-        setQuantities(prev => ({
-            ...prev,
-            [id]: (prev[id] || 0) + 1
-        }))
-    }
-
-    const handleDecrease = (id) => {
-        setQuantities(prev => ({
-            ...prev,
-            [id]: (prev[id] || 0) - 1 > 0 ? (prev[id] || 0) - 1 : 0
-        }))
-    }
-
-    const handleChange = (id, value) => {
-        const number = parseInt(value, 10)
-        setQuantities(prev => ({
-            ...prev,
-            [id]: number >= 0 ? number : 0
-        }))
-    }
     
     if (loading) return <h1>Loading...</h1>
     if (error) return <h1>A network error was encountered</h1>
@@ -72,19 +50,26 @@ const Images = () => {
                         <p>Price: ${image.price}</p>
                     </div>
                     <div className={styles.quantityControl}>
-                        <button onClick={() => handleDecrease(image.id)}>-</button>
+                        <button onClick={() => onDecrease(image.id)}>-</button>
                         <input 
                             type="number"
                             value={quantities[image.id] || 0}
-                            onChange={(e) => handleChange(image.id, e.target.value)}
+                            onChange={(e) => onChange(image.id, e.target.value)}
                         />
-                        <button onClick={() => handleIncrease(image.id)}>+</button>
+                        <button onClick={() => onIncrease(image.id)}>+</button>
                     </div>
                 </div>
                 ))
             }
         </div>
     )
+}
+
+Images.propTypes = {
+    quantities: PropTypes.object.isRequired,
+    onIncrease: PropTypes.func.isRequired,
+    onDecrease:PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
 }
 
 export default Images
