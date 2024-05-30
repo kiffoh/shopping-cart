@@ -1,0 +1,56 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    gap: 5em;
+}
+
+.grid > * {
+    display: grid;
+    grid-template-rows: auto 1fr auto auto auto;
+}
+
+.imgContainer {
+    display: flex;
+    align-items: center;
+}
+
+img {
+    position: relative;
+    width: 100%;
+    /* padding-bottom: 100%; /* This maintains a square aspect ratio */
+    overflow: hidden; /* Ensures that the image does not spill out of the container */
+}
+
+.bottomBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantityControl {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    height: 33px;
+}
+
+.quantityControl button {
+    padding: 5px 10px;
+    margin: 0 5px;
+}
+
+.quantityControl input {
+    width: 50px;
+    text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
