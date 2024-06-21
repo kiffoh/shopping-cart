@@ -1,34 +1,7 @@
-import { useEffect, useState } from "react";
 import styles from "./Images.module.css"
 import PropTypes from "prop-types"
 
-const useImageURL = () => {
-    const [imageURL, setImageURL] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetch('https://fakestoreapi.com/products/', { mode: "cors"})
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Server error")
-                }
-                return response.json();
-            })
-            .then((json) => {
-                setImageURL(json)
-            })
-            .catch((error) => {
-                setError(error)
-                console.log(error)
-            })
-            .finally(() => setLoading(false));
-    }, [])
-
-    return {imageURL, error, loading}
-}
-
-const Images = ({ quantities, onIncrease, onDecrease, onChange }) => {
+const Images = ({ quantities, onIncrease, onDecrease, onChange, useImageURL }) => {
     const { imageURL, error, loading } = useImageURL();
     
     if (loading) return <h1>Loading...</h1>
@@ -70,6 +43,7 @@ Images.propTypes = {
     onIncrease: PropTypes.func.isRequired,
     onDecrease:PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
+    useImageURL: PropTypes.func.isRequired,
 }
 
 export default Images
